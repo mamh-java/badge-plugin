@@ -263,3 +263,7 @@ The badge plugin provides the following additional icons:
 ![alt text](src/main/webapp/images/folder.gif "folder.gif")
 ![alt text](src/main/webapp/images/yellow.gif "yellow.gif")
 
+
+## Change Log
+
+[CHANGELOG.md] (./CHANGELOG.md)
