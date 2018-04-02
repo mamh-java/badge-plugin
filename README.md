@@ -266,4 +266,4 @@ The badge plugin provides the following additional icons:
 
 ## Change Log
 
-[CHANGELOG.md] (./CHANGELOG.md)
+[CHANGELOG.md](CHANGELOG.md)
