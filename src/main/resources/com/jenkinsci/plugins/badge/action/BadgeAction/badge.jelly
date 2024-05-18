@@ -2,7 +2,7 @@
 <!--
 The MIT License
 
- Copyright (c) 2024, Badge Plugin Authors
+Copyright (c) 2024, Badge Plugin Authors
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -24,47 +24,31 @@ THE SOFTWARE.
 -->
 
 <?jelly escape-by-default='true'?>
-<j:jelly xmlns:j="jelly:core" xmlns:l="/lib/layout" xmlns:st="jelly:stapler">
-
-  <j:if test="${it.iconPath != null}">
-    <j:set var="badgeStyle" value=""/>
-    <j:if test="${it.iconColorStyle != null}">
-      <j:set var="badgeStyle" value="${badgeStyle};color: ${it.iconColorStyle};"/>
+<j:jelly xmlns:j="jelly:core" xmlns:l="/lib/layout">
+    <!-- icon without link -->
+    <j:if test="${it.icon != null &amp;&amp; it.icon != '' &amp;&amp; (it.link == null || it.link == '')}">
+        <span class="${it.cssClass}" style="${it.style}">
+            <l:icon class="icon-sm" src="${it.icon}" alt="${it.text}" htmlTooltip="${it.text}"/>
+        </span>
     </j:if>
-
-    <j:if test="${it.link == null}">
-      <l:icon src="${it.iconPath}" class="${it.iconClass}" style="${badgeStyle}" htmlTooltip="${it.text}" />
+    <!-- icon with link -->
+    <j:if test="${it.icon != null &amp;&amp; it.icon != '' &amp;&amp; it.link != null &amp;&amp; it.link != ''}">
+        <span class="${it.cssClass}" style="${it.style}">
+            <a href="${it.link}">
+                <l:icon class="icon-sm" src="${it.icon}" alt="${it.text}" htmlTooltip="${it.text}"/>
+            </a>
+        </span>
     </j:if>
-
-    <j:if test="${it.link != null}">
-      <a href="${it.link}"><l:icon src="${it.iconPath}" class="${it.iconClass}" style="${badgeStyle}" htmlTooltip="${it.text}" /></a>
+    <!-- text without link -->
+    <j:if test="${(it.icon == null || it.icon == '') &amp;&amp; (it.link == null || it.link == '')}">
+        <span class="${it.cssClass}" style="${it.style}">
+            ${it.text}
+        </span>
     </j:if>
-  </j:if>
-
-  <j:if test="${it.iconPath == null}">
-    <st:adjunct includes="com.jenkinsci.plugins.badge.assets"/>
-    <j:set var="badgeStyle" value=""/>
-    <j:set var="badgeClass" value="badge-shortText"/>
-    <j:if test="${it.border != null}">
-      <j:set var="badgeStyle" value="${badgeStyle};border: ${it.border} solid ${it.borderColor}"/>
+    <!-- text with link -->
+    <j:if test="${(it.icon == null || it.icon == '') &amp;&amp; it.link != null &amp;&amp; it.link != ''}">
+        <span class="${it.cssClass}" style="${it.style}">
+            <a href="${it.link}">${it.text}</a>
+        </span>
     </j:if>
-    <j:if test="${it.background != null}">
-      <j:set var="badgeStyle" value="${badgeStyle};background: ${it.background}"/>
-    </j:if>
-    <j:if test="${it.background == null}">
-      <j:set var="badgeClass" value="${badgeClass} badge-shortText--default-background"/>
-    </j:if>
-    <j:if test="${it.iconColorStyle != null}">
-      <j:set var="badgeStyle" value="${badgeStyle};color: ${it.iconColorStyle};"/>
-    </j:if>
-
-    <j:if test="${it.link == null}">
-      <div style="${badgeStyle}" class="${it.iconClass} ${badgeClass}">${it.text}</div>
-    </j:if>
-
-    <j:if test="${it.link != null}">
-      <a href="${it.link}"><span style="${badgeStyle}" class="${it.iconClass} ${badgeClass}">${it.text}</span></a>
-    </j:if>
-  </j:if>
-
 </j:jelly>
